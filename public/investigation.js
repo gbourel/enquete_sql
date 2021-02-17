@@ -1,5 +1,5 @@
 (function (){
-  const VERSION = 'v0.1.2';
+  const VERSION = 'v0.1.3';
   let SQL = null;
   let _db = null;
   let _query = null;  // list of commands
