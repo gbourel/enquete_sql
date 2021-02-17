@@ -1,5 +1,5 @@
 (function (){
-  const VERSION = 'v0.1.1';
+  const VERSION = 'v0.1.2';
   let SQL = null;
   let _db = null;
   let _query = null;  // list of commands
@@ -160,7 +160,7 @@
       } else {
         // load database from remote file
         console.info('Fetch database...');
-        fetch("/etab.db").then(res => {
+        fetch("etab.db").then(res => {
           let buf = res.arrayBuffer()
           localStorage.setItem('etab.db', arrayBufferToBase64(buf));
           _db = new SQL.Database(new Uint8Array(buf));
