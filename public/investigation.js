@@ -160,11 +160,14 @@
       } else {
         // load database from remote file
         console.info('Fetch database...');
-        fetch("etab.db").then(res => {
-          let buf = res.arrayBuffer()
-          localStorage.setItem('etab.db', arrayBufferToBase64(buf));
-          _db = new SQL.Database(new Uint8Array(buf));
-          loaded();
+        fetch("etab.db")  .then(res => {
+          console.info('Fetch ok.');
+          res.arrayBuffer().then(buf => {
+            console.info('Cache and load DB.');
+            localStorage.setItem('etab.db', arrayBufferToBase64(buf));
+            _db = new SQL.Database(new Uint8Array(buf));
+            loaded();
+          })
         });
       }
     });
