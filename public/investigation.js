@@ -1,5 +1,5 @@
 (function (){
-  const VERSION = 'v0.1.0';
+  const VERSION = 'v0.1.1';
   let SQL = null;
   let _db = null;
   let _query = null;  // list of commands
@@ -179,6 +179,14 @@
     }
   });
   document.getElementById('version').textContent = VERSION;
+
+  let purl = new URL(window.location.href);
+  if(purl && purl.searchParams) {
+    let q = purl.searchParams.get("query");
+    if(q && q.length) {
+      document.getElementById('editor').innerHTML = '<div>' + q + '</div>';
+    }
+  }
 
   window.queryStart = start;
 
