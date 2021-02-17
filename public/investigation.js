@@ -1,5 +1,5 @@
 (function (){
-  const VERSION = 'v0.1.3';
+  const VERSION = 'v0.1.4';
   let SQL = null;
   let _db = null;
   let _query = null;  // list of commands
@@ -187,6 +187,8 @@
   if(purl && purl.searchParams) {
     let q = purl.searchParams.get("query");
     if(q && q.length) {
+      // kludge to handle invalid url with bad escaping for double quotes
+      q = q.replaceAll("%22", "\"")
       document.getElementById('editor').innerHTML = '<div>' + q + '</div>';
     }
   }
