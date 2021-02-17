@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Enquete SQL</title>
+    <meta name="description" content="TD NSI Enquete SQL" />
+    <meta name="author" content="G. Bourel" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Vollkorn:wght@900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Enquête SQL</h1>
+      <span id="version"></span>
+    </header>
+    <div class="content">
+      <div class="code">
+        <div class="buttons">
+          <div id="run" onclick="queryStart()">
+            <img src="img/arrow.svg" />
+          </div>
+          <div id="running">
+            <img src="img/queryAnim.svg" />
+          </div>
+        </div>
+        <div id="editor" contenteditable="true" spellcheck="false">
+          <div>SELECT * FROM eleves LIMIT 5;</div>
+        </div>
+      </div>
+      <div class="response">
+        <table id="results">
+        </table>
+        <span id="response-msg">Chargement en cours.</span>
+        <div id="error">
+          Error
+        </div>
+      </div>
+    </div>
+    <script src="lib/sql-wasm.js"></script>
+    <script src="investigation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,160 @@
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+html {
+  /*background: url("img/background-s.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;*/
+  height: 100%;
+  margin: 0;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  background-image: url('img/header.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+header {
+  display: flex;
+  min-height: 8rem;
+  margin: 0;
+  padding: 0.2rem 1.8rem;
+}
+#version {
+  position: absolute;
+  top: 0.8 rem;
+  right: 1.5rem;
+  color: #222;
+  font-size: 0.8rem;
+  font-style: italic;
+  background: #FFFFFFA0;
+  padding: 4px;
+}
+header h1 {
+  font-family: 'Vollkorn', serif;
+  font-size: 1.6rem;
+  font-variant: small-caps;
+  letter-spacing: 0.1rem;
+  font-weight: bold;
+  color: #262626;
+  text-shadow: -2px 2px 0 #DDD,
+                2px 2px 0 #DDD,
+                2px -2px 0 #DDD,
+               -2px -2px 0 #DDD;
+}
+@media (max-width: 512px) {
+  h1 {
+    font-size: 1.0rem;
+  }
+}
+
+h2 {
+  font-size: 1rem;
+  color: #555;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.code, .response {
+  min-width: 240px;
+  flex-grow: 1;
+  margin: 0 0.5rem;
+}
+
+.code {
+  position: relative;
+  flex-grow: 1;
+  background: #262626;
+  color: #DDD;
+  padding: 0;
+  min-height: 58px;
+}
+#editor {
+  width: 90%;
+  height: 90%;
+  overflow-y: auto;
+  margin: 1rem 42px 1rem 1rem ;
+  outline: none;
+}
+.current {
+  color: #D22;
+  font-weight: bold;
+  font-size: large;
+  letter-spacing: 0.05rem;
+}
+
+.response {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 2;
+  background: #ECECFA;
+  padding: 8px 0;
+}
+.response table {
+  font-size: 0.8rem;
+  border-collapse: collapse;
+}
+.response table td, .response table th {
+  border: 1px solid #444;
+  padding: 2px 4px;
+}
+.response table .count {
+  text-align: left;
+}
+#response-msg {
+  text-align: center;
+}
+#error {
+  display: none;
+  position: absolute;
+  text-align: center;
+  background: #DD3333;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  color: #eee;
+}
+
+.buttons {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+#run {
+  display: none;
+  padding: 0.5rem;
+  background: #60a33c;
+  border-radius: 0.5rem;
+  transition: all 0.4s ease 0s;
+}
+#run:hover {
+  background: #30832c;
+}
+#run img {
+  width: 24px;
+}
+
+#running {
+  display: none;
+}
+#running img {
+  width: 64px;
+}
+
+#results {
+  display: none;
+}

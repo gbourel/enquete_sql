@@ -1,0 +1,8 @@
+{
+  "name": "enquetesql",
+  "version": "0.1.0",
+  "description": "TD SQL",
+  "dependencies": {
+    "sql.js": "^1.4.0"
+  }
+}
