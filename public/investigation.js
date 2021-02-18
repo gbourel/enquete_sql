@@ -64,7 +64,9 @@
     for(const child of elt.childNodes) {
       // get text nodes content
       if(child.nodeType === Node.TEXT_NODE) {
-        query += child.textContent;
+        if(child.textContent) {
+          query += child.textContent.trim();
+        }
       } else if(child.nodeType === Node.ELEMENT_NODE) {
         if(child.children && child.children.length > 0
            && !(child.children.length === 1
@@ -73,7 +75,9 @@
         } else {
           // skips BR tags
           if(child.nodeName !== 'BR'){
-            query += ' ' + child.innerText + ' ';
+            if(child.innerText) {
+              query += ' ' + child.innerText.trim() + ' ';
+            }
           }
         }
       } else {
@@ -122,6 +126,7 @@
       table.innerHTML = '';
       msg.style.display = 'inline-block';
       msg.innerText = 'Aucun résultat pour la requête:\n ' + query;
+      document.getElementById('error').style.display = 'none';
     }
   }
 
@@ -132,6 +137,7 @@
     let query = getQuery(editor);
     let results = null;
     try {
+      console.info('Query:', query);
       results = _db.exec(query);
       showResults(results, query);
     } catch(err) {
