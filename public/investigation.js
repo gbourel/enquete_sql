@@ -1,5 +1,5 @@
 (function (){
-  const VERSION = 'v0.2.0';
+  const VERSION = 'v0.2.1';
   let SQL = null;
   let _db = null;
   let _query = null;  // list of commands
@@ -98,7 +98,7 @@
       let cntcell = document.createElement("th");
       cntcell.setAttribute('class', 'count');
       cntcell.setAttribute('colspan', r.columns.length);
-      cntcell.innerText = 'Nombre de lignes trouvés: ' + r.values.length;
+      cntcell.innerText = 'Nombre de lignes trouvées: ' + r.values.length;
       count.appendChild(cntcell);
       table.appendChild(count);
       let head = document.createElement("tr");
