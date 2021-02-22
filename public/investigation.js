@@ -166,7 +166,7 @@
       } else {
         // load database from remote file
         console.info('Fetch database...');
-        fetch("etab.db")  .then(res => {
+        fetch("etab.db").then(res => {
           console.info('Fetch ok.');
           res.arrayBuffer().then(buf => {
             console.info('Cache and load DB.');
@@ -198,6 +198,10 @@
       document.getElementById('editor').innerHTML = '<div>' + q + '</div>';
     }
   }
+
+  // Page view counter
+  fetch('https://hitcounter.ileauxsciences.fr/hit/', {
+    method: 'POST' });
 
   window.queryStart = start;
 
