@@ -76,7 +76,8 @@
           // skips BR tags
           if(child.nodeName !== 'BR'){
             if(child.innerText) {
-              query += ' ' + child.innerText.trim() + ' ';
+              let text = child.innerText.replace(/\s+/g, ' ')
+              query += ' ' + text.trim() + ' ';
             }
           }
         }
