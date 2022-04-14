@@ -4,17 +4,6 @@
   let _db = null;
   let _query = null;  // list of commands
 
-  // highlight command
-  function highlightCmd(elt) {
-    let highlighted = Array.from(document.querySelectorAll('.current'));
-    highlighted.forEach(e => {
-      e.classList.remove('current');
-    })
-    if(elt) {
-      elt.classList.add('current');
-    }
-  }
-
   // display error msg
   function error(msg) {
     let elt = document.getElementById('error');
@@ -22,21 +11,6 @@
     elt.style.display = 'inline-block';
     document.getElementById('results').style.display = 'none';
     document.getElementById('response-msg').style.display = 'none';
-  }
-
-  function showRunning() {
-    let elt = document.getElementById('run');
-    elt.style.display = 'none';
-    elt = document.getElementById('running');
-    elt.style.display = 'inline-block';
-  }
-  function showStart() {
-    let elt = document.getElementById('running');
-    elt.style.display = 'none';
-    elt = document.getElementById('run');
-    elt.style.display = 'inline-block';
-    elt = document.getElementById('error');
-    elt.style.display = 'none';
   }
 
   function arrayBufferToBase64( buffer ) {
@@ -180,9 +154,9 @@
     });
   }
 
-  // run command on CTRL + Enter shorcut
+  // run command on CTRL + Enter shortcut
   document.addEventListener('keyup', evt => {
-    if(evt.srcElement && evt.srcElement.id === 'editor'
+    if(evt.target && evt.target.id === 'editor'
        && evt.key === 'Enter'
        && evt.ctrlKey && !evt.shiftKey && !evt.altKey) {
       start();
