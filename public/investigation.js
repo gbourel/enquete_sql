@@ -1,8 +1,16 @@
 (function (){
-  const VERSION = 'v0.2.2';
+  const VERSION = 'v0.3.0';
   let SQL = null;
   let _db = null;
   let _query = null;  // list of commands
+
+  const config = {
+    log: () => {},
+
+    debug: false,
+    activity: 1,
+    db: 'etab.db'
+  };
 
   // display error msg
   function error(msg) {
@@ -110,6 +118,7 @@
     let editor = document.getElementById("editor")
     let nodes = [];
     let query = getQuery(editor);
+    localStorage.setItem('last_query', query);
     let results = null;
     try {
       console.info('Query:', query);
@@ -123,17 +132,52 @@
   // When DB is completly loaded
   function loaded() {
     document.getElementById('run').style.display = 'inline-block';
-    document.getElementById('response-msg').innerText = 'Aucun résultat.';
-    start();
+    document.getElementById('response-msg').innerText = "En attente de l'exécution d'une requête";
+    // start();
   }
 
   // Initialize DB
   function init() {
+    // Load parameters from url search infos
+    const options = {
+      debug: 'bool',
+      activity: 'int'
+    }
+    let search = window.location.search;
+    if(search && search.length > 0) {
+      let vars = search.substring(1).split("&");
+      for (let v of vars) {
+        let pair = v.split("=");
+        if(!(pair[0] in options)) {
+          console.warn('Unknown option:', pair[0]);
+          continue;
+        }
+        if (options[pair[0]] === 'bool') {
+          config[pair[0]] = true;
+        } else if (options[pair[0]] === 'int') {
+          config[pair[0]] = parseInt(pair[1]);
+        } else {
+          config[pair[0]] = pair[1];
+        }
+      }
+    }
+    if (config.activity === 2) {
+      config.db = 'liner.db';
+      let curQuery = '-- Les requêtes SQL peuvent être écrites ici.';
+      const last = localStorage.getItem('last_query');
+      if (last) {
+        curQuery = last;
+      }
+      document.querySelector('body').classList.add('liner');
+      document.querySelector('#editor div').innerHTML = curQuery;
+      document.querySelector('header h2').innerHTML = 'Base de données pour les questions de <a href="https://nsix.fr">nsix.fr</a> code <strong>UHPMJT</strong>.';
+    }
+
     initSqlJs({
       locateFile: file => `lib/${file}`
     }).then(res => {
       SQL = res;
-      const dbdata = localStorage.getItem('etab.db');
+      const dbdata = null; //localStorage.getItem(config.db);
       if(dbdata) {
         const buf = base64ToArrayBuffer(dbdata);
         _db = new SQL.Database(new Uint8Array(buf));
@@ -141,11 +185,11 @@
       } else {
         // load database from remote file
         console.info('Fetch database...');
-        fetch("etab.db").then(res => {
+        fetch(config.db).then(res => {
           console.info('Fetch ok.');
           res.arrayBuffer().then(buf => {
-            console.info('Cache and load DB.');
-            localStorage.setItem('etab.db', arrayBufferToBase64(buf));
+            console.info('Cache and load DB.', config.db);
+            localStorage.setItem(config.db, arrayBufferToBase64(buf));
             _db = new SQL.Database(new Uint8Array(buf));
             loaded();
           })
@@ -175,8 +219,8 @@
   }
 
   // Page view counter
-  fetch('https://hitcounter.ileauxsciences.fr/hit/', {
-    method: 'POST' });
+  // fetch('https://hitcounter.ileauxsciences.fr/hit/', {
+  //   method: 'POST' });
 
   window.queryStart = start;
 
